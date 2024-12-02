@@ -19,6 +19,19 @@ module Monday
         make_request(request_query)
       end
 
+      def items_page_by_column_values(args: {}, select: DEFAULT_SELECT)
+        # board_id: $board_id, columns: {column_id: 'name', column_values: [$name]}
+        request_query = "query {
+          items_page_by_column_values#{Util.format_args(args)} {
+            items {
+              #{Util.format_select(select)}
+            }
+          }
+        }"
+
+        make_request(request_query)
+      end
+
       # Creates a new item.
       #
       # Allows customizing the item creation using the args option.
